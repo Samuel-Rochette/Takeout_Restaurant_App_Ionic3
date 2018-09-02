@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <button menuToggle *ngIf="!selectedItem">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Item Detail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3 text-center *ngIf="item">
+    {{item.name}}
+  </h3>
+  <h4 text-center *ngIf="item">
+    {{item.description}}
+  </h4>
+  <h4 text-center *ngIf="item">
+    {{item.price/100}} $
+  </h4>
+  <button ion-button (click)="addToOrder()">Add to Order</button>
+</ion-content>

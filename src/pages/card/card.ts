@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Http, Headers } from "@angular/http";
+import { baseUrl } from "../../shared/baseurl";
 
 import { Stripe } from "@ionic-native/stripe";
 
@@ -39,7 +40,7 @@ export class CardPage {
       var headers = new Headers();
       headers.append("Content-Type", "application/json");
       this.http
-        .post("http://10.0.3.2:3333/processpay", JSON.stringify(data), { headers: headers })
+        .post(baseUrl + "processpay", JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           if (res.json().success) alert("transaction successful");
         });

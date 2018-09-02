@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Checkout</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <div ion-item *ngFor="let item of order">
+      {{item.name}} {{item.price/100}} $
+    </div>
+  </ion-list>
+  <div>Total Price: {{totalprice/100}}</div>
+</ion-content>
