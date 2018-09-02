@@ -35,4 +35,8 @@ export class CheckoutProvider {
       console.log("Removing non-existant order");
     }
   }
+
+  returnOrder(): Array<any> {
+    return this.order;
+  }
 }

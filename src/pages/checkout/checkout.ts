@@ -12,6 +12,7 @@ export class CheckoutPage implements OnInit {
   order: Item[];
   totalprice: number = 0;
   errMess: string;
+  counter: Array<any>;
 
   constructor(
     public navCtrl: NavController,
@@ -20,17 +21,22 @@ export class CheckoutPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.checkoutservice
-      .getOrder()
-      .subscribe(
-        order => (
-          this.order = order,
-          order.forEach((el) => {
-            this.totalprice += el.price;
-          })
-        ),
-        errmess => (this.errMess = errmess)
-      );
+    this.counter = this.checkoutservice.returnOrder();
+    this.checkoutservice.getOrder().subscribe(
+      order => (
+        (this.order = order),
+        order.forEach(el => {
+          el.amount = 0;
+          this.counter.forEach(id => {
+            if (id === el._id) {
+              el.amount += 1;
+            }
+          });
+          this.totalprice += el.price * el.amount;
+        })
+      ),
+      errmess => (this.errMess = errmess)
+    );
   }
 
   ionViewDidLoad() {

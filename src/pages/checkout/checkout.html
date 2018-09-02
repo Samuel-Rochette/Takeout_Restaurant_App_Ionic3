@@ -13,7 +13,7 @@
 <ion-content padding>
   <ion-list>
     <div ion-item *ngFor="let item of order">
-      {{item.name}} {{item.price/100}} $
+      {{item.name}} {{item.price/100}} $ Count: {{item.amount}}
     </div>
   </ion-list>
   <div>Total Price: {{totalprice/100}}</div>
