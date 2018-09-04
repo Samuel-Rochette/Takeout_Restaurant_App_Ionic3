@@ -6,8 +6,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { Stripe } from "@ionic-native/stripe";
 import { IonicStorageModule } from "@ionic/storage";
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from "../pages/list/list";
 import { HomePage } from "../pages/home/home";
 import { CardPage } from "../pages/card/card";
 import { MenuPage } from "../pages/menu/menu";
@@ -22,9 +20,7 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
 @NgModule({
   declarations: [
     MyApp,
-    HelloIonicPage,
     CardPage,
-    ListPage,
     HomePage,
     MenuPage,
     ItemdetailPage,
@@ -39,9 +35,7 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HelloIonicPage,
     CardPage,
-    ListPage,
     HomePage,
     MenuPage,
     ItemdetailPage,

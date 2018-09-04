@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { Item } from "../../shared/menuitem";
+import { CardPage } from "../card/card";
 
 @IonicPage()
 @Component({
@@ -41,5 +42,11 @@ export class CheckoutPage implements OnInit {
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad CheckoutPage");
+  }
+
+  carddetails() {
+    this.navCtrl.push(CardPage, {
+      price: this.totalprice
+    });
   }
 }

@@ -1,9 +1,14 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Item } from "../../shared/menuitem";
 import { Observable } from "rxjs";
 import { MenuProvider } from "../menu/menu";
+import { baseUrl } from "../../shared/baseurl";
 import "rxjs/add/operator/map";
+
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
+};
 
 @Injectable()
 export class CheckoutProvider {
@@ -36,7 +41,16 @@ export class CheckoutProvider {
     }
   }
 
+  postOrder(data: any): Observable<any> {
+    return this.http.post<any>(baseUrl + "processpay", data, httpOptions);
+  }
+
   returnOrder(): Array<any> {
     return this.order;
+  }
+
+  resetOrder(): boolean {
+    this.order = [];
+    return true;
   }
 }

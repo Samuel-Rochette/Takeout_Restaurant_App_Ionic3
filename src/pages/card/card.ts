@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { Http, Headers } from "@angular/http";
-import { baseUrl } from "../../shared/baseurl";
+import { CheckoutProvider } from "../../providers/checkout/checkout";
+import { HomePage } from "../home/home";
 
 import { Stripe } from "@ionic-native/stripe";
 
@@ -17,13 +17,16 @@ export class CardPage {
     expYear: "",
     cvc: ""
   };
+  price: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public stripe: Stripe,
-    public http: Http
-  ) {}
+    private checkoutservice: CheckoutProvider
+  ) {
+    this.price = navParams.get("price");
+  }
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad CardPage");
@@ -34,16 +37,14 @@ export class CardPage {
     this.stripe.createCardToken(this.cardinfo).then(token => {
       console.log(token.id);
       let data = {
-        amount: "5000",
+        amount: this.price,
         stripetoken: token.id
-      }
-      var headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      this.http
-        .post(baseUrl + "processpay", JSON.stringify(data), { headers: headers })
-        .subscribe(res => {
-          if (res.json().success) alert("transaction successful");
-        });
+      };
+
+      this.checkoutservice.postOrder(JSON.stringify(data)).subscribe(() => {
+        this.checkoutservice.resetOrder();
+        this.navCtrl.setRoot(HomePage);
+      });
     });
   }
 }
