@@ -20,6 +20,6 @@
   <h4 text-center *ngIf="item">
     {{item.price/100}} $
   </h4>
-  <p>Count: {{amount}}</p>
-  <button ion-button (click)="addToOrder()">Add to Order</button>
+  <p>Count: {{item.amount}}</p>
+  <button ion-button (tap)="addToOrder()">Add to Order</button>
 </ion-content>

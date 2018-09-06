@@ -12,11 +12,26 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected($event, item)">
-      {{item.name}}
-      <div class="item-note" item-right>
-        {{item.price/100}} $
-      </div>
-    </button>
+    <div ion-item *ngFor="let item of items" (click)="itemSelected($event, item)">
+      <ion-grid>
+        <ion-row>
+          <ion-col text-wrap col-4>
+            {{item.name}}
+          </ion-col>
+          <ion-col col-5>
+            <button class="menu-item-button" ion-button small clear=true [disabled]="item.amount <= 0" (click)="removeFromOrder($event, item)">
+              <ion-icon class="menu-item-icon" name="remove-circle"></ion-icon>
+            </button>
+              {{item.amount}}
+            <button class="menu-item-button" ion-button small clear=true (click)="addToOrder($event, item)">
+              <ion-icon class="menu-item-icon" name="add-circle"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-3>
+            {{item.price/100}} $
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </ion-list>
 </ion-content>

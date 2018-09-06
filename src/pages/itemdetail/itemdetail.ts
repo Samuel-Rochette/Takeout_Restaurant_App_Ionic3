@@ -10,7 +10,6 @@ import { CheckoutProvider } from "../../providers/checkout/checkout";
 })
 export class ItemdetailPage implements OnInit {
   item: Item;
-  amount: number;
   order: Array<any>;
   errMess: string;
 
@@ -22,15 +21,7 @@ export class ItemdetailPage implements OnInit {
     this.item = navParams.get("item");
   }
 
-  ngOnInit() {
-    this.order = this.checkoutservice.returnOrder();
-    this.amount = 0;
-    this.order.forEach(el => {
-      if (el === this.item._id) {
-        this.amount += 1;
-      }
-    });
-  }
+  ngOnInit() {}
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad ItemdetailPage");
@@ -38,6 +29,6 @@ export class ItemdetailPage implements OnInit {
 
   addToOrder() {
     this.checkoutservice.addToOrder(this.item._id);
-    this.amount += 1;
+    this.item.amount += 1;
   }
 }
