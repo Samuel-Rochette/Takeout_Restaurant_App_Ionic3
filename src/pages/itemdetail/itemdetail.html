@@ -11,15 +11,22 @@
 
 
 <ion-content padding>
-  <h3 text-center *ngIf="item">
-    {{item.name}}
-  </h3>
-  <h4 text-center *ngIf="item">
-    {{item.description}}
-  </h4>
-  <h4 text-center *ngIf="item">
-    {{item.price}} $
-  </h4>
-  <p>Count: {{item.amount}}</p>
-  <button ion-button (tap)="addToOrder()">Add to Order</button>
+  <ion-card *ngIf="item">
+    <ion-card-content>
+      <ion-card-title>
+        {{item.name}}
+      </ion-card-title>
+      <p>
+        {{item.description}}
+      </p>
+      <p margin-top="20px">
+        Price: $ {{item.price}}
+      </p>
+      <p margin-top="20px" margin-bottom="20px">
+        Order: {{item.amount}}
+      </p>
+      <button ion-button (tap)="addToOrder()">Add to Order</button>
+      <button ion-button (tap)="removeFromOrder()" [disabled]="item.amount <= 0" color="danger">Remove from Order</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

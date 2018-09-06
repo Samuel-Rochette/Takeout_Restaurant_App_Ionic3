@@ -31,4 +31,9 @@ export class ItemdetailPage implements OnInit {
     this.checkoutservice.addToOrder(this.item._id);
     this.item.amount += 1;
   }
+
+  removeFromOrder() {
+    this.checkoutservice.removeFromOrder(this.item._id);
+    this.item.amount -= 1;
+  }
 }
