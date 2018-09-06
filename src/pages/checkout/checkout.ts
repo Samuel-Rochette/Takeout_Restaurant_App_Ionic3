@@ -12,6 +12,7 @@ import { CardPage } from "../card/card";
 export class CheckoutPage implements OnInit {
   order: Item[];
   totalprice: number = 0;
+  displayprice: string;
   errMess: string;
   counter: Array<any>;
 
@@ -33,7 +34,10 @@ export class CheckoutPage implements OnInit {
               el.amount += 1;
             }
           });
-          this.totalprice += el.price * el.amount;
+          this.totalprice += parseFloat(el.price) * el.amount;
+          this.displayprice = (Math.round(this.totalprice * 100) / 100)
+            .toFixed(2)
+            .toString();
         })
       ),
       errmess => (this.errMess = errmess)
@@ -46,7 +50,7 @@ export class CheckoutPage implements OnInit {
 
   carddetails() {
     this.navCtrl.push(CardPage, {
-      price: this.totalprice
+      price: this.totalprice * 100
     });
   }
 }

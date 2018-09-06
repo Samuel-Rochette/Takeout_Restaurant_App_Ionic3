@@ -13,9 +13,9 @@
 <ion-content padding>
   <ion-list>
     <div ion-item *ngFor="let item of order">
-      {{item.name}} {{item.price/100}} $ Count: {{item.amount}}
+      {{item.name}} {{item.price}} $ Count: {{item.amount}}
     </div>
   </ion-list>
-  <div>Total Price: {{totalprice/100}}</div>
+  <div>Total Price: {{displayprice}}</div>
   <button ion-button (tap)="carddetails()">Checkout</button>
 </ion-content>
