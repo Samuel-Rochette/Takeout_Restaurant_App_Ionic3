@@ -14,6 +14,8 @@ export class MenuPage implements OnInit {
   items: Item[];
   errMess: string;
   counter: Array<any>;
+  searchOpen: boolean = false;
+  searchBar: string = "";
 
   constructor(
     public navCtrl: NavController,
@@ -45,7 +47,7 @@ export class MenuPage implements OnInit {
   }
 
   addToOrder(event, item) {
-    event.stopPropagation()
+    event.stopPropagation();
     this.checkoutservice.addToOrder(item._id);
     item.amount += 1;
   }
@@ -59,6 +61,20 @@ export class MenuPage implements OnInit {
   itemSelected(event, item) {
     this.navCtrl.push(ItemdetailPage, {
       item: item
+    });
+  }
+
+  onInput(event) {
+    console.log(this.searchBar);
+    this.items = [];
+    this.menuservice.getMenu().subscribe(items => {
+      items.forEach(item => {
+        if (
+          item.name.toUpperCase().indexOf(this.searchBar.toUpperCase()) != -1
+        ) {
+          this.items.push(item);
+        }
+      });
     });
   }
 }

@@ -11,11 +11,42 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <div ion-item *ngFor="let item of order">
-      {{item.name}} {{item.price}} $ Count: {{item.amount}}
-    </div>
-  </ion-list>
-  <div>Total Price: {{displayprice}}</div>
-  <button ion-button (tap)="carddetails()">Checkout</button>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title margin-left="25px">
+        Order
+      </ion-card-title>
+      <ion-list>
+        <div ion-item *ngFor="let item of order">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-2>
+                {{item.amount}}
+              </ion-col>
+              <ion-col col-5 text-wrap>
+                {{item.name}}
+              </ion-col>
+              <ion-col col-5>
+                $ {{(item.price * item.amount).toFixed(2)}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-7>
+                Total Price
+              </ion-col>
+              <ion-col col-5>
+                $ {{totalprice}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-list>
+      <button ion-button margin-left="25px" margin-top="10px" (tap)="carddetails()">Checkout</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
