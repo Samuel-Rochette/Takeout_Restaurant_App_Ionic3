@@ -65,7 +65,6 @@ export class MenuPage implements OnInit {
   }
 
   onInput(event) {
-    console.log(this.searchBar);
     this.items = [];
     this.menuservice.getMenu().subscribe(items => {
       items.forEach(item => {
@@ -75,14 +74,14 @@ export class MenuPage implements OnInit {
           this.items.push(item);
         }
       }),
-        items.forEach(el => {
-          el.amount = 0;
-          this.counter.forEach(id => {
-            if (id === el._id) {
-              el.amount += 1;
-            }
-          });
+      items.forEach(el => {
+        el.amount = 0;
+        this.counter.forEach(id => {
+          if (id === el._id) {
+            el.amount += 1;
+          }
         });
+      });
     });
   }
 }

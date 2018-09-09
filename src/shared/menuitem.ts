@@ -4,4 +4,5 @@ export interface Item {
   description: string;
   price: string;
   amount: number;
+  saved: boolean;
 }
