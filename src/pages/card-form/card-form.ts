@@ -4,7 +4,6 @@ import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { CheckoutPage } from "../checkout/checkout";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { MenuPage } from "../menu/menu";
-import { CheckoutPage } from "../checkout/checkout";
 
 @IonicPage()
 @Component({
@@ -80,13 +79,13 @@ export class CardFormPage implements OnInit {
   }
   onSubmit() {
     this.navCtrl.push(CheckoutPage, {
-      cardNumber: this.cardForm.cardNumber,
-      expMonth: this.cardForm.expMonth,
-      expYear: this.cardForm.expYear,
-      cvv: this.cardForm.cvv,
-      email: this.cardForm.email,
-      isDelivery: this.cardForm.isDelivery,
-      address: this.cardForm.address
+      cardNumber: this.cardForm.value.cardNumber,
+      expMonth: this.cardForm.value.expMonth,
+      expYear: this.cardForm.value.expYear,
+      cvv: this.cardForm.value.cvv,
+      email: this.cardForm.value.email,
+      isDelivery: this.cardForm.value.isDelivery,
+      address: this.cardForm.value.address
     });
   }
 }
