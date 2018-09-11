@@ -38,7 +38,7 @@ export class MenuPage implements OnInit {
           });
         })
       ),
-      errmess => (this.errMess = errmess)
+      errmess => (this.errMess = errmess.message)
     );
   }
 

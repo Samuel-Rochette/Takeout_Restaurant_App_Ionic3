@@ -12,6 +12,7 @@ import { MenuPage } from "../pages/menu/menu";
 import { ItemdetailPage } from "../pages/itemdetail/itemdetail";
 import { CheckoutPage } from "../pages/checkout/checkout";
 import { SavedOrderPage} from "../pages/saved-order/saved-order"
+import { CardFormPage } from "../pages/card-form/card-form";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +27,8 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
     MenuPage,
     ItemdetailPage,
     CheckoutPage,
-    SavedOrderPage
+    SavedOrderPage,
+    CardFormPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { CheckoutProvider } from '../providers/checkout/checkout';
     MenuPage,
     ItemdetailPage,
     CheckoutPage,
-    SavedOrderPage
+    SavedOrderPage,
+    CardFormPage
   ],
   providers: [
     StatusBar,

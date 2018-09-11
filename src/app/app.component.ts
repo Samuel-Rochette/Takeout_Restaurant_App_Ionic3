@@ -4,8 +4,8 @@ import { Platform, MenuController, Nav } from "ionic-angular";
 
 import { HomePage } from "../pages/home/home";
 import { MenuPage } from "../pages/menu/menu";
-import { CheckoutPage } from "../pages/checkout/checkout";
 import { SavedOrderPage } from "../pages/saved-order/saved-order";
+import { CardFormPage } from "../pages/card-form/card-form";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -18,7 +18,7 @@ export class MyApp {
 
   // make HelloIonicPage the root (or first) page
   rootPage = HomePage;
-  pages: Array<{ title: string; component: any }>;
+  pages: Array<{ title: string; icon: string; component: any }>;
 
   constructor(
     public platform: Platform,
@@ -30,10 +30,10 @@ export class MyApp {
 
     // set our app's pages
     this.pages = [
-      { title: "Home", component: HomePage },
-      { title: "Menu", component: MenuPage },
-      { title: "Saved Orders", component: SavedOrderPage },
-      { title: "Checkout", component: CheckoutPage }
+      { title: "Home", icon: "home", component: HomePage },
+      { title: "Menu", icon: "restaurant", component: MenuPage },
+      { title: "Saved Orders", icon: "heart", component: SavedOrderPage },
+      { title: "Checkout", icon: "card", component: CardFormPage }
     ];
   }
 

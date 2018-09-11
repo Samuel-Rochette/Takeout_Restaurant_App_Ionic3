@@ -1,18 +1,60 @@
-<!--
-  Generated template for the CardFormPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>CardForm</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Checkout</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <p *ngIf="order.length == 0" margin-left="25px" style="color:red">
+    You have not made an order
+  </p>
+  <button *ngIf="order.length == 0" ion-button margin-left="25px" (click)="backToMenu()">Go Back to Menu</button>
+  <form *ngIf="order.length != 0" novalidate [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+    <ion-card>
+      <ion-card-title margin-left="25px">
+        Card Information
+      </ion-card-title>
+      <ion-list>
+        <ion-item>
+          <ion-label text-wrap color="primary" fixed>Card Number</ion-label>
+          <ion-input formControlName="cardNumber" type="text"></ion-input>
+        </ion-item>
+        <p *ngIf="cardForm.controls.cardNumber.errors && cardForm.controls.cardNumber.touched" style="color:red" padding>card number is not valid</p>
+        <ion-item>
+          <ion-label text-wrap color=primary fixed>Expiry Date</ion-label>
+          <ion-input formControlName="expMonth" type="text" placeholder="MM"></ion-input>
+          <ion-input formControlName="expYear" type="text" placeholder="YY"></ion-input>
+        </ion-item>
+        <p *ngIf="(cardForm.controls.expMonth.errors && cardForm.controls.expMonth.touched) || (cardForm.controls.expYear.errors && cardForm.controls.expYear.touched)" style="color:red" padding>expiry date is not valid</p>
+        <ion-item>
+          <ion-label text-wrap color="primary" fixed>cvv</ion-label>
+          <ion-input formControlName="cvv" type="text"></ion-input>
+        </ion-item>
+        <p *ngIf="cardForm.controls.cvv.errors && cardForm.controls.cvv.touched" style="color:red" padding>cvv is not valid</p>
+        <ion-item>
+          <ion-label text-wrap color="primary" fixed>Email</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <p *ngIf="cardForm.controls.email.errors && cardForm.controls.email.touched" style="color:red" padding>email is not valid</p>
+        <ion-item>
+          <ion-label text-wrap color="primary" fixed>Address</ion-label>
+          <ion-input formControlName="address" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label text-wrap color="primary">Delivery or Takeout</ion-label>
+          <ion-select formControlName="isDelivery">
+            <ion-option value="false">Takeout</ion-option>
+            <ion-option value="true">Delivery</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+    <button ion-button sumbit margin-left="25px" [disabled]="!cardForm.valid">Checkout</button>
+  </form>
 </ion-content>

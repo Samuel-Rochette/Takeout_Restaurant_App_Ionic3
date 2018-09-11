@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Item } from "../../shared/menuitem";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { Storage } from "@ionic/storage";
-import { CheckoutPage } from "../checkout/checkout";
+import { CardFormPage } from "../card-form/card-form";
 
 @IonicPage()
 @Component({
@@ -67,6 +67,6 @@ export class ItemdetailPage implements OnInit {
   }
 
   moveToCheckout() {
-    this.navCtrl.setRoot(CheckoutPage);
+    this.navCtrl.setRoot(CardFormPage);
   }
 }
