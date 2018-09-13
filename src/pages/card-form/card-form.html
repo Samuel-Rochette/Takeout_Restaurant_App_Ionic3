@@ -39,7 +39,7 @@
         <p *ngIf="cardForm.controls.cvv.errors && cardForm.controls.cvv.touched" style="color:red" padding>cvv is not valid</p>
         <ion-item>
           <ion-label text-wrap color="primary" fixed>Email</ion-label>
-          <ion-input formControlName="email" type="email"></ion-input>
+          <ion-input formControlName="email" type="email" [value]="email"></ion-input>
         </ion-item>
         <p *ngIf="cardForm.controls.email.errors && cardForm.controls.email.touched" style="color:red" padding>email is not valid</p>
         <ion-item>

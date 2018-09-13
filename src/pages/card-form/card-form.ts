@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { CheckoutPage } from "../checkout/checkout";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { MenuPage } from "../menu/menu";
+import { Storage } from "@ionic/storage";
 
 @IonicPage()
 @Component({
@@ -12,19 +13,27 @@ import { MenuPage } from "../menu/menu";
 })
 export class CardFormPage implements OnInit {
   order: Array<any>;
+  email: string = "";
   cardForm: FormGroup;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private fb: FormBuilder,
-    private checkoutservice: CheckoutProvider
+    private checkoutservice: CheckoutProvider,
+    private storage: Storage
   ) {
     this.createForm();
   }
 
   ngOnInit() {
     this.order = this.checkoutservice.returnOrder();
+    this.storage.get("email").then(val => {
+      if (val) {
+        this.email = val;
+      }
+      console.log(this.email);
+    });
   }
 
   ionViewDidLoad() {
@@ -78,14 +87,21 @@ export class CardFormPage implements OnInit {
     this.navCtrl.setRoot(MenuPage);
   }
   onSubmit() {
-    this.navCtrl.push(CheckoutPage, {
-      cardNumber: this.cardForm.value.cardNumber,
-      expMonth: this.cardForm.value.expMonth,
-      expYear: this.cardForm.value.expYear,
-      cvv: this.cardForm.value.cvv,
-      email: this.cardForm.value.email,
-      isDelivery: this.cardForm.value.isDelivery,
-      address: this.cardForm.value.address
+    this.checkoutservice.checkInfo().subscribe(response => {
+      if (response.message === "success") {
+        this.storage.set("email", this.cardForm.value.email);
+        this.navCtrl.push(CheckoutPage, {
+          cardNumber: this.cardForm.value.cardNumber,
+          expMonth: this.cardForm.value.expMonth,
+          expYear: this.cardForm.value.expYear,
+          cvv: this.cardForm.value.cvv,
+          email: this.cardForm.value.email,
+          isDelivery: this.cardForm.value.isDelivery,
+          address: this.cardForm.value.address
+        });
+      } else {
+        alert(response.message);
+      }
     });
   }
 }

@@ -5,6 +5,7 @@ import { MenuProvider } from "../../providers/menu/menu";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { ItemdetailPage } from "../itemdetail/itemdetail";
 import { Storage } from "@ionic/storage";
+import { CardFormPage } from "../card-form/card-form";
 
 @IonicPage()
 @Component({
@@ -17,6 +18,7 @@ export class SavedOrderPage implements OnInit {
   counter: Array<any>;
   searchOpen: boolean = false;
   searchBar: string = "";
+  savedOrders: Array<any>;
 
   constructor(
     public navCtrl: NavController,
@@ -41,6 +43,17 @@ export class SavedOrderPage implements OnInit {
             });
             if (val.indexOf(el._id) != -1) {
               this.items.push(el);
+            }
+            if (!val) {
+              this.storage.set("savedOrders", []);
+              this.savedOrders = [];
+            } else {
+              this.savedOrders = val;
+              if (this.savedOrders.indexOf(el._id) != -1) {
+                el.saved = true;
+              } else {
+                el.saved = false;
+              }
             }
           })
         ),
@@ -69,6 +82,22 @@ export class SavedOrderPage implements OnInit {
     this.navCtrl.push(ItemdetailPage, {
       item: item
     });
+  }
+
+  moveToCheckout() {
+    this.navCtrl.setRoot(CardFormPage);
+  }
+
+  removeSave(event, item) {
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i]._id === item._id) {
+        this.items.splice(i, 1);
+      }
+    }
+    let index = this.savedOrders.indexOf(item._id);
+    this.savedOrders.splice(index, 1);
+    this.storage.set("savedOrders", this.savedOrders);
+    item.saved = false;
   }
 
   onInput(event) {

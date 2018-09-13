@@ -1,9 +1,6 @@
 <ion-header>
 
   <ion-navbar>
-    <button menuToggle *ngIf="!selectedItem">
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Item Detail</ion-title>
   </ion-navbar>
 
@@ -11,7 +8,7 @@
 
 
 <ion-content padding>
-  <ion-card *ngIf="item">
+  <ion-card *ngIf="item" (swipe)="swipeEvent($event)">
     <ion-card-content>
       <ion-card-title>
         {{item.name}}
@@ -27,32 +24,36 @@
       </p>
       <button ion-button (tap)="addToOrder()">Add to Order</button>
       <button ion-button (tap)="removeFromOrder()" [disabled]="item.amount <= 0" color="danger">Remove from Order</button>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button *ngIf="!item.saved" ion-button small clear=true (tap)="saveItem()">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button>
+            <button *ngIf="item.saved" ion-button small clear=true (tap)="unSaveItem()">
+              <ion-icon name="heart"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button clear=true small (tap)="prev()">
+              <ion-icon name="arrow-round-back"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button clear=true small (tap)="next()">
+              <ion-icon name="arrow-round-forward"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button clear=true small (tap)="moveToCheckout()">
+              <ion-icon name="card"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
   <div text-center [hidden]="item">
     <ion-spinner></ion-spinner>
   </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <ion-fab left [hidden]="saved">
-          <button ion-fab (tap)="saveItem()">
-            <ion-icon name="heart-outline"></ion-icon>
-          </button>
-        </ion-fab>
-        <ion-fab left [hidden]="!saved">
-          <button ion-fab (tap)="unSaveItem()">
-            <ion-icon name="heart"></ion-icon>
-          </button>
-        </ion-fab>
-      </ion-col>
-      <ion-col col-6>
-        <ion-fab right>
-          <button ion-fab (tap)="moveToCheckout()">
-            <ion-icon name="card"></ion-icon>
-          </button>
-        </ion-fab>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>

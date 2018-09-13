@@ -41,6 +41,10 @@ export class CheckoutProvider {
     }
   }
 
+  checkInfo(): Observable<any> {
+    return this.http.post<any>(baseUrl + "processpay/check", null, httpOptions);
+  }
+
   postOrder(data: any): Observable<any> {
     return this.http.post<any>(baseUrl + "processpay", data, httpOptions);
   }
