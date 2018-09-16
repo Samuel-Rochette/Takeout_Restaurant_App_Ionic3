@@ -5,6 +5,11 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Checkout</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentOptions()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -23,18 +28,18 @@
       <ion-list>
         <ion-item>
           <ion-label text-wrap color="primary" fixed>Card Number</ion-label>
-          <ion-input formControlName="cardNumber" type="text"></ion-input>
+          <ion-input formControlName="cardNumber" type="text" [value]="cardNumber"></ion-input>
         </ion-item>
         <p *ngIf="cardForm.controls.cardNumber.errors && cardForm.controls.cardNumber.touched" style="color:red" padding>card number is not valid</p>
         <ion-item>
           <ion-label text-wrap color=primary fixed>Expiry Date</ion-label>
-          <ion-input formControlName="expMonth" type="text" placeholder="MM"></ion-input>
-          <ion-input formControlName="expYear" type="text" placeholder="YY"></ion-input>
+          <ion-input formControlName="expMonth" type="text" [value]="expMonth" placeholder="MM"></ion-input>
+          <ion-input formControlName="expYear" type="text" [value]="expYear" placeholder="YY"></ion-input>
         </ion-item>
         <p *ngIf="(cardForm.controls.expMonth.errors && cardForm.controls.expMonth.touched) || (cardForm.controls.expYear.errors && cardForm.controls.expYear.touched)" style="color:red" padding>expiry date is not valid</p>
         <ion-item>
           <ion-label text-wrap color="primary" fixed>cvv</ion-label>
-          <ion-input formControlName="cvv" type="text"></ion-input>
+          <ion-input formControlName="cvv" type="text" [value]="cvv"></ion-input>
         </ion-item>
         <p *ngIf="cardForm.controls.cvv.errors && cardForm.controls.cvv.touched" style="color:red" padding>cvv is not valid</p>
         <ion-item>
@@ -44,7 +49,7 @@
         <p *ngIf="cardForm.controls.email.errors && cardForm.controls.email.touched" style="color:red" padding>email is not valid</p>
         <ion-item>
           <ion-label text-wrap color="primary" fixed>Address</ion-label>
-          <ion-input formControlName="address" type="text"></ion-input>
+          <ion-input formControlName="address" type="text" [value]="address"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label text-wrap color="primary">Delivery or Takeout</ion-label>

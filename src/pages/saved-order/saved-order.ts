@@ -6,6 +6,7 @@ import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { ItemdetailPage } from "../itemdetail/itemdetail";
 import { Storage } from "@ionic/storage";
 import { CardFormPage } from "../card-form/card-form";
+import { MenuPage } from "../menu/menu";
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class SavedOrderPage implements OnInit {
   searchOpen: boolean = false;
   searchBar: string = "";
   savedOrders: Array<any>;
+  showList: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -43,6 +45,7 @@ export class SavedOrderPage implements OnInit {
             });
             if (val.indexOf(el._id) != -1) {
               this.items.push(el);
+              this.showList = true;
             }
             if (!val) {
               this.storage.set("savedOrders", []);
@@ -86,6 +89,10 @@ export class SavedOrderPage implements OnInit {
 
   moveToCheckout() {
     this.navCtrl.setRoot(CardFormPage);
+  }
+
+  backToMenu() {
+    this.navCtrl.setRoot(MenuPage);
   }
 
   removeSave(event, item) {

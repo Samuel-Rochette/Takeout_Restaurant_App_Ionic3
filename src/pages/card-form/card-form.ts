@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from "ionic-angular";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { CheckoutPage } from "../checkout/checkout";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
@@ -14,14 +19,23 @@ import { Storage } from "@ionic/storage";
 export class CardFormPage implements OnInit {
   order: Array<any>;
   email: string = "";
+  cardNumber: string = "";
+  address: string = "";
+  expMonth: string = "";
+  expYear: string = "";
+  cvv: string = "";
   cardForm: FormGroup;
+  saveEmail: boolean = false;
+  saveAddress: boolean = false;
+  saveCardInfo: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private fb: FormBuilder,
     private checkoutservice: CheckoutProvider,
-    private storage: Storage
+    private storage: Storage,
+    private alertCtrl: AlertController
   ) {
     this.createForm();
   }
@@ -32,7 +46,19 @@ export class CardFormPage implements OnInit {
       if (val) {
         this.email = val;
       }
-      console.log(this.email);
+    });
+    this.storage.get("address").then(val => {
+      if (val) {
+        this.address = val;
+      }
+    });
+    this.storage.get("cardInfo").then(val => {
+      if (val) {
+        this.cardNumber = val.cardNumber;
+        this.expMonth = val.expMonth;
+        this.expYear = val.expYear;
+        this.cvv = val.cvv;
+      }
     });
   }
 
@@ -86,6 +112,50 @@ export class CardFormPage implements OnInit {
   backToMenu() {
     this.navCtrl.setRoot(MenuPage);
   }
+
+  presentOptions() {
+    let options = this.alertCtrl.create();
+    options.setTitle("Options");
+
+    options.addInput({
+      type: "checkbox",
+      label: "Save Email",
+      value: "saveEmail",
+      checked: this.saveEmail
+    });
+
+    options.addInput({
+      type: "checkbox",
+      label: "Save Address",
+      value: "saveAddress",
+      checked: this.saveAddress
+    });
+
+    options.addInput({
+      type: "checkbox",
+      label: "Save Card Information",
+      value: "saveCardInfo",
+      checked: this.saveCardInfo
+    });
+
+    options.addButton("Cancel");
+    options.addButton({
+      text: "Okay",
+      handler: data => {
+        if (data.indexOf("saveEmail") != -1) {
+          this.saveEmail = true;
+        }
+        if (data.indexOf("saveAddress") != -1) {
+          this.saveAddress = true;
+        }
+        if (data.indexOf("saveCardInfo") != -1) {
+          this.saveCardInfo = true;
+        }
+      }
+    });
+    options.present();
+  }
+
   onSubmit() {
     let data = {
       isDelivery: this.cardForm.value.isDelivery,
@@ -93,14 +163,27 @@ export class CardFormPage implements OnInit {
     };
     this.checkoutservice.checkInfo(JSON.stringify(data)).subscribe(response => {
       if (response.message === "success") {
-        this.storage.set("email", this.cardForm.value.email);
+        if (this.saveEmail) {
+          this.storage.set("email", this.cardForm.value.email);
+        }
+        if (this.saveAddress) {
+          this.storage.set("address", this.cardForm.value.address);
+        }
+        if (this.saveCardInfo) {
+          this.storage.set("cardInfo", {
+            cardNumber: this.cardForm.value.cardNumber,
+            expMonth: this.cardForm.value.expMonth,
+            expYear: this.cardForm.value.expYear,
+            cvv: this.cardForm.value.cvv
+          });
+        }
         this.navCtrl.push(CheckoutPage, {
           cardNumber: this.cardForm.value.cardNumber,
           expMonth: this.cardForm.value.expMonth,
           expYear: this.cardForm.value.expYear,
           cvv: this.cardForm.value.cvv,
           email: this.cardForm.value.email,
-          isDelivery: this.cardForm.value.isDelivery,
+          isDelivery: this.cardForm.value.isDelivery
         });
       } else {
         alert(response.message);

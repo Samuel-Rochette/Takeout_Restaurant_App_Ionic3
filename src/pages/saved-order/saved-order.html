@@ -20,7 +20,11 @@
 
 
 <ion-content padding>
-  <ion-list>
+  <p *ngIf="!showList" margin-left="25px" style="color:red">
+    You don't have any saved orders
+  </p>
+  <button *ngIf="!showList" ion-button margin-left="25px" (click)="backToMenu()">Go Back to Menu</button>
+  <ion-list *ngIf="showList">
     <ion-item-sliding *ngFor="let item of items">
       <ion-item (click)="itemSelected($event, item)">
         <ion-grid>
