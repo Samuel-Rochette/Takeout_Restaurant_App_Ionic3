@@ -87,7 +87,11 @@ export class CardFormPage implements OnInit {
     this.navCtrl.setRoot(MenuPage);
   }
   onSubmit() {
-    this.checkoutservice.checkInfo().subscribe(response => {
+    let data = {
+      isDelivery: this.cardForm.value.isDelivery,
+      address: this.cardForm.value.address
+    };
+    this.checkoutservice.checkInfo(JSON.stringify(data)).subscribe(response => {
       if (response.message === "success") {
         this.storage.set("email", this.cardForm.value.email);
         this.navCtrl.push(CheckoutPage, {
@@ -97,7 +101,6 @@ export class CardFormPage implements OnInit {
           cvv: this.cardForm.value.cvv,
           email: this.cardForm.value.email,
           isDelivery: this.cardForm.value.isDelivery,
-          address: this.cardForm.value.address
         });
       } else {
         alert(response.message);

@@ -5,7 +5,6 @@ import { MenuProvider } from "../../providers/menu/menu";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
 import { Storage } from "@ionic/storage";
 import { CardFormPage } from "../card-form/card-form";
-import { MenuPage } from "../menu/menu";
 
 @IonicPage()
 @Component({

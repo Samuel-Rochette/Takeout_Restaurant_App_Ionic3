@@ -7,7 +7,10 @@ import { baseUrl } from "../../shared/baseurl";
 import "rxjs/add/operator/map";
 
 const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
+  headers: new HttpHeaders({
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*"
+  })
 };
 
 @Injectable()
@@ -41,8 +44,8 @@ export class CheckoutProvider {
     }
   }
 
-  checkInfo(): Observable<any> {
-    return this.http.post<any>(baseUrl + "processpay/check", null, httpOptions);
+  checkInfo(data: any): Observable<any> {
+    return this.http.post<any>(baseUrl + "processpay/check", data, httpOptions);
   }
 
   postOrder(data: any): Observable<any> {
