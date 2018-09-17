@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  AlertController
+} from "ionic-angular";
 import { Item } from "../../shared/menuitem";
 import { MenuProvider } from "../../providers/menu/menu";
 import { CheckoutProvider } from "../../providers/checkout/checkout";
@@ -19,16 +24,19 @@ export class MenuPage implements OnInit {
   searchOpen: boolean = false;
   searchBar: string = "";
   savedOrders: Array<any>;
+  currentTag: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private menuservice: MenuProvider,
     private checkoutservice: CheckoutProvider,
-    private storage: Storage
+    private storage: Storage,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
+    this.currentTag = "";
     this.counter = this.checkoutservice.returnOrder();
     this.storage.get("savedOrders").then(val => {
       this.menuservice.getMenu().subscribe(
@@ -102,12 +110,69 @@ export class MenuPage implements OnInit {
     item.saved = false;
   }
 
+  openSort() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle("Sort");
+
+    alert.addInput({
+      type: "radio",
+      label: "All",
+      value: "",
+      checked: true
+    });
+
+    alert.addInput({
+      type: "radio",
+      label: "Meals",
+      value: "Meal"
+    });
+
+    alert.addInput({
+      type: "radio",
+      label: "Sides",
+      value: "Side"
+    });
+
+    alert.addInput({
+      type: "radio",
+      label: "Drinks",
+      value: "Drink"
+    });
+
+    alert.addButton("Cancel");
+    alert.addButton({
+      text: "OK",
+      handler: data => {
+        if (data == "") {
+          this.ngOnInit();
+        } else {
+          this.searchBar = "";
+          this.currentTag = data;
+          this.items = [];
+          this.menuservice.getTag(this.currentTag).subscribe(items => {
+            (this.items = items),
+            items.forEach(el => {
+              el.amount = 0;
+              this.counter.forEach(id => {
+                if (id === el._id) {
+                  el.amount += 1;
+                }
+              });
+            });
+          });
+        }
+      }
+    });
+    alert.present();
+  }
+
   onInput(event) {
     this.items = [];
     this.menuservice.getMenu().subscribe(items => {
       items.forEach(item => {
         if (
-          item.name.toUpperCase().indexOf(this.searchBar.toUpperCase()) != -1
+          item.name.toUpperCase().indexOf(this.searchBar.toUpperCase()) != -1 &&
+          item.tag.indexOf(this.currentTag) != -1
         ) {
           this.items.push(item);
         }

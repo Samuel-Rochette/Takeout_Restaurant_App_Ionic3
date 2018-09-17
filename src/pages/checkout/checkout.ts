@@ -120,6 +120,7 @@ export class CheckoutPage implements OnInit {
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
+          enableBackdropDismiss: false,
           buttons: [
             {
               text: "OK",

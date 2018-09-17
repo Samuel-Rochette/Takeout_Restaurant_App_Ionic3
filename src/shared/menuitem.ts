@@ -5,4 +5,5 @@ export interface Item {
   price: string;
   amount: number;
   saved: boolean;
+  tag: string;
 }

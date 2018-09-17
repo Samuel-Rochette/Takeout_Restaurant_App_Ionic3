@@ -21,6 +21,14 @@ export class MenuProvider {
     return response;
   }
 
+  getTag(tag: string): Observable<Item[]> {
+    let response = this.http
+      .get<Item[]>(baseUrl + "menu/tag/" + tag)
+      .map(res => res)
+      .pipe(catchError((error: any) => Observable.throw(error)));
+    return response;
+  }
+
   getMenuItem(id: string): Observable<Item> {
     let response = this.http
       .get<Item>(baseUrl + "menu/" + id)

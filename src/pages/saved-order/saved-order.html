@@ -55,6 +55,11 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-fab bottom right>
+    <button ion-fab (click)="openSort()">
+      <ion-icon name="options"></ion-icon>
+    </button>
+  </ion-fab>
   <div text-center [hidden]="items || errMess">
     <ion-spinner></ion-spinner>
   </div>

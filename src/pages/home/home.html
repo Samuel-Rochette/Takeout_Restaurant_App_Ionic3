@@ -17,4 +17,23 @@
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut orci ex, venenatis eget eros vitae, tempor eleifend ligula. Aenean vitae dignissim erat, eget posuere nibh. Nulla condimentum pellentesque ex nec accumsan. Fusce sed odio vel magna blandit cursus at at mi. Sed ut feugiat ligula. Mauris lacinia purus dolor, eu tincidunt risus commodo nec. Etiam tincidunt tincidunt nibh, at laoreet mi faucibus id. Fusce auctor vulputate mauris, ut consequat urna porta eu.
   </p>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button (click)="onCall()">
+          <ion-icon name="call" margin-right="1px"></ion-icon> Call
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button (click)="moveToMenu()">
+          <ion-icon name="restaurant" margin-right="1px"></ion-icon> Menu
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button (click)="moveToSaved()">
+          <ion-icon name="heart" margin-right="1px"></ion-icon> Saved
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
