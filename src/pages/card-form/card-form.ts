@@ -178,15 +178,20 @@ export class CardFormPage implements OnInit {
           });
         }
         this.navCtrl.push(CheckoutPage, {
+          email: this.cardForm.value.email,
+          isDelivery: this.cardForm.value.isDelivery,
           cardNumber: this.cardForm.value.cardNumber,
           expMonth: this.cardForm.value.expMonth,
           expYear: this.cardForm.value.expYear,
-          cvv: this.cardForm.value.cvv,
-          email: this.cardForm.value.email,
-          isDelivery: this.cardForm.value.isDelivery
+          cvv: this.cardForm.value.cvv
         });
       } else {
-        alert(response.message);
+        let alert = this.alertCtrl.create({
+          title: "Error",
+          subTitle: response.message,
+          buttons: ["OK"]
+        });
+        alert.present();
       }
     });
   }

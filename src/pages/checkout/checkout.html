@@ -33,6 +33,42 @@
             </ion-row>
           </ion-grid>
         </div>
+        <div ion-item *ngIf="isDelivery">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-7 text-wrap>
+                Delivery Fee
+              </ion-col>
+              <ion-col col-5>
+                $ 2.00
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-7 text-wrap>
+                HST
+              </ion-col>
+              <ion-col col-5>
+                $ {{hst.toFixed(2)}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-7 text-wrap>
+                Processing Fee
+              </ion-col>
+              <ion-col col-5>
+                $ {{stripeFee.toFixed(2)}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
         <div ion-item>
           <ion-grid>
             <ion-row>
@@ -46,7 +82,7 @@
           </ion-grid>
         </div>
       </ion-list>
-      <button ion-button margin-left="25px" margin-top="10px" (tap)="carddetails()">Checkout</button>
+      <button ion-button margin-left="25px" margin-top="10px" (tap)="pay()">Checkout</button>
     </ion-card-content>
   </ion-card>
   <div [hidden]="order || errMess">

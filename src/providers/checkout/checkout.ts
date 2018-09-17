@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Item } from "../../shared/menuitem";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { MenuProvider } from "../menu/menu";
 import { baseUrl } from "../../shared/baseurl";
+import { catchError } from "rxjs/operators";
 import "rxjs/add/operator/map";
+import "rxjs/add/observable/throw";
 
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*"
+    "Content-Type": "application/json"
   })
 };
 
@@ -49,7 +50,10 @@ export class CheckoutProvider {
   }
 
   postOrder(data: any): Observable<any> {
-    return this.http.post<any>(baseUrl + "processpay", data, httpOptions);
+    let response = this.http
+      .post<any>(baseUrl + "processpay", data, httpOptions)
+      .pipe(catchError(error => of(error)));
+    return response;
   }
 
   returnOrder(): Array<any> {
