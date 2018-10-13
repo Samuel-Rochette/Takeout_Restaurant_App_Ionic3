@@ -8,7 +8,6 @@ import { CallNumber } from "@ionic-native/call-number";
 import { IonicStorageModule } from "@ionic/storage";
 
 import { HomePage } from "../pages/home/home";
-import { CardPage } from "../pages/card/card";
 import { MenuPage } from "../pages/menu/menu";
 import { ItemdetailPage } from "../pages/itemdetail/itemdetail";
 import { CheckoutPage } from "../pages/checkout/checkout";
@@ -23,7 +22,6 @@ import { CheckoutProvider } from "../providers/checkout/checkout";
 @NgModule({
   declarations: [
     MyApp,
-    CardPage,
     HomePage,
     MenuPage,
     ItemdetailPage,
@@ -40,7 +38,6 @@ import { CheckoutProvider } from "../providers/checkout/checkout";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    CardPage,
     HomePage,
     MenuPage,
     ItemdetailPage,
